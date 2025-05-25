@@ -5,24 +5,23 @@ phases:
     runtime-versions:
       php: 8.0
     commands:
-      - echo "Installing Composer..."
+      - echo Installing Composer
       - curl -sS https://getcomposer.org/installer | php
-      - mv composer.phar /usr/local/bin/composer
+      - sudo mv composer.phar /usr/local/bin/composer
 
   pre_build:
     commands:
-      - echo "Pre-build phase: nothing to do here."
+      - echo Pre-build phase
 
   build:
     commands:
-      - echo "Installing PHP dependencies..."
+      - echo Running composer install
       - composer install --no-dev --optimize-autoloader
 
   post_build:
     commands:
-      - echo "Build completed on `date`."
-
+      - echo Build completed on `date`
+      
 artifacts:
   files:
     - '**/*'
-  discard-paths: no
