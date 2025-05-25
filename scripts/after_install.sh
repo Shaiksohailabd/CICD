@@ -1,6 +1,14 @@
 #!/bin/bash
-set -e
 echo "Setting file permissions..."
-sudo chown -R apache:apache /var/www/html
-sudo chmod -R 755 /var/www/html
-echo "Cleaning up old deployment files..."
+
+if id "apache" &>/dev/null; then
+  USER="apache"
+elif id "www-data" &>/dev/null; then
+  USER="www-data"
+else
+  echo "Web server user not found. Exiting."
+  exit 1
+fi
+
+chown -R $USER:$USER /var/www/html
+chmod -R 755 /var/www/html
